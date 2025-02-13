@@ -2,7 +2,7 @@
 set -e  # Aborts the script on error
 
 log_file="/var/log/entrypoint_sh_logs.log"
-list_of_daemons=($(awk -F= '/^\s*[a-zA-Z0-9_-]+\s*=\s*yes\s*$/{print $1}' /etc/frr/daemons))
+list_of_daemons=($(vtysh -c "show daemon" | awk '/^ *[a-zA-Z0-9_-]+/ {print $1}'))
 
 echo "=======================" | tee -a "$log_file"
 echo "Restarting FRR to enable DAEMONS..." | tee -a "$log_file"
