@@ -1,0 +1,12 @@
+services:
+  bgp-frr:
+    build:
+      context: .
+    container_name: BGP-FRR-container
+    # Copy the configuration file and daemons file (with needed daemons)
+    volumes:
+      - ./frr.conf:/etc/frr/frr.conf
+      - ./daemons:/etc/frr/daemons
+    network_mode: "host"
+    restart: always
+    privileged: true
